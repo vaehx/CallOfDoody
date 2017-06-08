@@ -1,0 +1,7 @@
+*.log
+*.vcxproj.user
+*.VC.db
+*.vs
+*/Debug/*
+*/Release/*
+CallOfDoody/Workspace/*
