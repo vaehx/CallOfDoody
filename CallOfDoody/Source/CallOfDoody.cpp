@@ -32,7 +32,7 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 
 	pEngine->GetResources()->SetResourceRootPath(string(execPath) + "\\Workspace");
 
-	string worldFile = "/worlds/test.spw";
+	string worldFile = "/worlds/New-Test/newtest.spw";
 	CLog::Log(S_DEBUG, "Loading World %s", worldFile.c_str());
 	pEngine->LoadWorld(worldFile);
 
@@ -40,6 +40,7 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 	// Set World Environment
 	SEnvironmentSettings environment;
 	environment.sunPosition = Vec3f(0.25f, 0.3f, 0.25f);
+	environment.sunIntensity = SColor(4.0f, 4.0f, 4.0f);
 	environment.fogStart = 50.0f;
 	environment.fogEnd = pEngine->GetRenderer()->GetTargetViewport()->GetProjectionDesc().farZ;
 
