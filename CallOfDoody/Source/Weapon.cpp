@@ -74,7 +74,8 @@ void CWeapon::Shoot()
 
 void CWeapon::Reload()
 {
-	m_Ammo.current = min(m_Ammo.magazineCapacity - m_Ammo.current, m_Ammo.available);
+	m_Ammo.available += m_Ammo.current;
+	m_Ammo.current = min(m_Ammo.magazineCapacity, m_Ammo.available);
 	m_Ammo.available -= m_Ammo.current;
 }
 
