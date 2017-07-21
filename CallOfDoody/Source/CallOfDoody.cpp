@@ -40,7 +40,7 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 	// Set World Environment
 	SEnvironmentSettings environment;
 	environment.sunPosition = Vec3f(0.25f, 0.3f, 0.25f);
-	environment.sunIntensity = SColor(4.0f, 4.0f, 4.0f);
+	environment.sunIntensity = SColor(6.0f, 6.0f, 6.0f);
 	environment.fogStart = 50.0f;
 	environment.fogEnd = pEngine->GetRenderer()->GetTargetViewport()->GetProjectionDesc().farZ;
 
@@ -52,9 +52,6 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 	IEntity* pPlayerEntity = pEngine->GetScene()->SpawnEntity("player", pPlayerEntityClass);
 
 	m_pPlayer = pPlayerEntity->GetComponent<CPlayer>();
-
-	SCamera* pCamera = m_pPlayer->GetCamera();
-	pEngine->GetRenderer()->GetTargetViewport()->SetCamera(m_pPlayer->GetCamera());
 
 	// Get spawn pos from scene
 	Vec3f spawnPos = Vec3f(-13.f, 15.f, -10.f);
@@ -72,11 +69,15 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 	playerParams.diameter = 0.6f;
 	m_pPlayer->Setup(playerParams);
 
+	SCamera* pCamera = m_pPlayer->GetCamera();
+	pEngine->GetRenderer()->GetTargetViewport()->SetCamera(m_pPlayer->GetCamera());
+
 	m_LastTerrainUpdatePlayerPos = m_pPlayer->GetEntity()->GetPos();
 
 	// -------------------------------------
 	// Setup terrain
 	pEngine->Get3DEngine()->GetTerrain()->GenLodLevelChunks(pCamera);
+	//pEngine->GetRenderer()->EnableWireframe(true);
 
 	// -------------------------------------
 	// Setup skybox

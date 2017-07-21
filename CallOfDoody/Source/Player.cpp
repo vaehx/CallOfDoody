@@ -138,7 +138,7 @@ void CPlayer::HandleMovement(float fTime, int viewportOffset[2], int viewportSz[
 	forward = Vec3f(forward.x, 0, forward.z).Normalized();
 
 	float step = 8200.0f;
-	if (!m_bOnFloor)
+	if (!m_bOnFloor && !m_bFreeCam)
 		step *= 0.f;
 
 	if (GetAsyncKeyState(VK_SHIFT) < 0)
