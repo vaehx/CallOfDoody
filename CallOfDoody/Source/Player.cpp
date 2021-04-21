@@ -5,6 +5,7 @@
 #include <3DEngine\IParticleSystem.h>
 #include <Renderer\IResourcePool.h>
 #include <GameFramework\IGameEngine.h>
+#include <GameFramework\Implementation\SPMManager.h>
 #include <Common\Camera.h>
 
 using namespace SpeedPoint;
@@ -29,9 +30,9 @@ void CPlayer::Setup(const SPlayerParameters& params)
 
 	// Setup physical component
 	float radius = 0.5f * m_Params.diameter;
-	Vec3f p1(0, -m_Params.height, 0), p2(0, 0, 0);
+	Vec3f p1(0, m_Params.diameter, 0), p2(0, m_Params.height - m_Params.diameter, 0);
 
-	pPhysObject->SetCollisionShape(geo::capsule(p1, p2, radius));
+	pPhysObject->SetProxy(geo::capsule(p1, p2, radius));
 	pPhysObject->SetBehavior(ePHYSOBJ_BEHAVIOR_LIVING);
 	pPhysObject->SetMass(80.0f);
 
@@ -49,9 +50,9 @@ void CPlayer::Setup(const SPlayerParameters& params)
 
 	IEntity* pWeaponEntity = SpeedPointEnv::GetScene()->SpawnEntity("player_weapon");
 
-	IGeometry* pWeaponGeometry = p3DEngine->GetGeometryManager()->LoadGeometry("/models/weapons/mp42.spm");
+	SPMManager* pSPMMgr = SpeedPointEnv::GetEngine()->GetSPMManager();
 	CRenderMesh* pWeaponMesh = pWeaponEntity->AddComponent(p3DEngine->CreateMesh());
-	pWeaponMesh->Init(pWeaponGeometry);
+	pWeaponMesh->Init(pSPMMgr->LoadAsGeometry("/models/weapons/mp42.spm"));
 
 	pWeaponEntity->SetPos(Vec3f(-0.25f, -0.30f, 0.6f));
 	//pWeaponEntity->SetRotation(Quat::FromEuler(Vec3f(-SP_PI * 0.5f, 0, SP_PI)));
@@ -102,7 +103,7 @@ void CPlayer::OnEntityTransformed()
 	assert(m_pEntity);
 
 	if (!m_bFreeCam)
-		m_Camera.position = m_pEntity->GetPos();
+		m_Camera.position = m_pEntity->GetPos() + Vec3f(0, m_Params.height - 0.15f, 0);
 }
 
 /////////////////////////////////////////////////////////////////////////////////

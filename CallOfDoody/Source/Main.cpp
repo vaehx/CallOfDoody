@@ -167,6 +167,16 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR cmdLine, 
 						pPlayer->EnableFreeCam(!pPlayer->IsFreeCamEnabled());
 						break;
 					}
+				case VK_F2:
+					{
+						engine.GetPhysics()->ShowHelpers(!engine.GetPhysics()->HelpersShown());
+						break;
+					}
+				case VK_F8:
+					{
+						engine.GetPhysics()->Pause(!engine.GetPhysics()->IsPaused());
+						break;
+					}
 				}
 				break;
 			case WM_QUIT:

@@ -32,7 +32,8 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 
 	pEngine->GetResources()->SetResourceRootPath(string(execPath) + "\\Workspace");
 
-	string worldFile = "/worlds/New-Test/newtest.spw";
+	//string worldFile = "/worlds/phystest/phystest.spw";
+	string worldFile = "/worlds/newtest/newtest.spw";
 	CLog::Log(S_DEBUG, "Loading World %s", worldFile.c_str());
 	pEngine->LoadWorld(worldFile);
 
@@ -46,15 +47,21 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 
 	pEngine->Get3DEngine()->SetEnvironmentSettings(environment);
 
+	pEngine->Get3DEngine()->DebugTexture("$LightDiffuse");
+
+	//pEngine->GetPhysics()->ShowHelpers(true);
+	//pEngine->GetPhysics()->Pause();
+
 	// -------------------------------------
 	// Create player
 	IEntityClass* pPlayerEntityClass = pEngine->GetEntityClassManager()->GetClass("Player");
 	IEntity* pPlayerEntity = pEngine->GetScene()->SpawnEntity("player", pPlayerEntityClass);
 
 	m_pPlayer = pPlayerEntity->GetComponent<CPlayer>();
+	//m_pPlayer->EnableFreeCam(true);
 
 	// Get spawn pos from scene
-	Vec3f spawnPos = Vec3f(-13.f, 15.f, -10.f);
+	Vec3f spawnPos = Vec3f(-13.f, 8.f, -10.f);
 	IEntity* pSpawn = pEngine->GetScene()->GetFirstEntityByName("spawn");
 	if (pSpawn)
 		spawnPos = pSpawn->GetPos();
@@ -65,7 +72,7 @@ void CallOfDoody::OnInit(IGameEngine* pEngine)
 	// Setup player
 	SPlayerParameters playerParams;
 	playerParams.pos = spawnPos;
-	playerParams.height = 1.60f;
+	playerParams.height = 2.20f;
 	playerParams.diameter = 0.6f;
 	m_pPlayer->Setup(playerParams);
 

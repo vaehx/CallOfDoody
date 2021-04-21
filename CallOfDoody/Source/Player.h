@@ -4,7 +4,7 @@
 #include <EntitySystem\IEntityClass.h>
 #include <3DEngine\ITerrain.h>
 #include <Common\Camera.h>
-#include <Common\MathGeom.h>
+#include <Common\geo.h>
 
 using namespace SpeedPoint;
 
